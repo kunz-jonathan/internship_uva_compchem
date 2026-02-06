@@ -1,0 +1,13 @@
+Input file for pb calculation for protein petide system for MD-sim. with Charmm FF
+
+
+&general
+sys_name="Prot-Pept",
+startframe=1,
+temperature=310
+PBRadii=7 # needed to apply as charmm ff is used and restricts us to pb
+/
+&pb
+indi=5, # value chosen from https://www.frontiersin.org/journals/chemistry/articles/10.3389/fchem.2020.573259/full
+exdi=80 # actually 80 is alr. the standard value
+/

@@ -1,0 +1,9 @@
+{
+    "design_path": "/home/kunzj/internship_uva_compchem/Data/iteration_0/bindcraft",
+    "binder_name": "BAX_1F16",
+    "starting_pdb": "/home/kunzj/internship_uva_compchem/Data/target/1F16.pdb",
+    "chains": "A",
+    "target_hotspot_residues": "74-99",
+    "lengths": [9, 15],
+    "number_of_final_designs": 102
+}

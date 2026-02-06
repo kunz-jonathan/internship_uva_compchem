@@ -1,0 +1,6 @@
+{
+    "water_model": "tip3p",
+    "dimension_box": "1.0",
+    "form_box": "cubic",
+    "force_field": "charmm36-jul2022"
+}

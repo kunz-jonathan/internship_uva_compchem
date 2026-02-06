@@ -1,0 +1,51 @@
+title                   = md run
+; Run parameters
+integrator              = md                    ; leap-frog integrator
+nsteps                  = 25000000             ; 2 * 25000000= 50000000fs = 50 ns
+dt                      = 0.002                 ; 2 fs
+; Output control
+nstxout                 = 12500                 ; save coordinates every 25 ps
+nstxtcout               = 12500                 ; xtc compressed trajectory output every 25 ps
+nstvout                 = 1250000               ; save velocities every 2500 ps
+nstenergy               = 12500                 ; save energies every 25 ps
+nstlog                  = 12500                 ; update log file every 25 ps
+; Bond parameters
+continuation            = yes                    ; first dynamics run
+constraint_algorithm    = lincs                 ; holonomic constraints
+constraints             = h-bonds   	        ; all bonds (even heavy atom-H bonds) constrained
+lincs_iter              = 2                     ; accuracy of LINCS
+lincs_order             = 4                     ; accuracy related
+; Neighborsearching
+cutoff-scheme           = Verlet                ; default
+verlet-buffer-tolerance = 0.005                 ; default 0.005
+ns_type                 = grid                  ; search neighboring grid cells
+nstlist                 = 5                     ; 10 fs
+rlist                   = 1.2                   ; short-range neighborlist cutoff (in nm)
+vdw-type                = Cut-off
+vdw-modifier            = None
+rvdw                    = 1.2                   ; short-range van der Waals cutoff (in nm)
+rvdw-switch             = 0
+rlistlong               = -1
+nstcalclr               = -1                    ; check it
+; Electrostatics
+coulombtype             = PME
+pme_order               = 4
+fourierspacing          = 0.16
+rcoulomb                = 1.2                   ; short-range electrostatic cutoff (in nm)
+epsilon-r               = 1
+epsilon-rf              = 0                     ; 0 = infinity
+; Temperature coupling is on
+tcoupl                  = V-rescale             ; modified Berendsen thermostat
+tc-grps                 = Protein Non-Protein   ; two coupling groups - more accurate
+nsttcouple              = 1                     ; For velocity Verlet integrators nsttcouple is set to 1.
+tau_t                   = 2.0   2.0             ; time constant, in ps
+ref_t                   = 310   310             ; reference temperature, one for each group, in K
+; Pressure coupling is off
+pcoupl          = no
+; Periodic boundary conditions
+pbc                     = xyz                   ; 3-D PBC
+periodic-molecules      = no                    ; default
+; Dispersion correction
+DispCorr                = EnerPres              ; account for cut-off vdW scheme
+; Velocity generation
+gen_vel                 = no
