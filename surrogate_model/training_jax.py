@@ -17,7 +17,6 @@ from functions.training import (
 )
 import jax.numpy as jnp
 import jax.random as jr
-import jax
 from torch.utils.data import DataLoader
 import pickle
 
@@ -55,23 +54,19 @@ model_key, call_key = jr.split(jrandom.PRNGKey(0), 2)
 torch_model, _ = esm.pretrained.esm2_t30_150M_UR50D()
 model_esm2 = esm2quinox.from_torch(torch_model)
 
-model_aff = stripped_PREDICTOR(
-    model= model_esm2, key=model_key
-)
+model_aff = stripped_PREDICTOR(model=model_esm2, key=model_key)
 
 # initializing optimizer
 optim = optax.adam(learning_rate=0.001)
 opt_state = optim.init(eqx.filter(model_aff, eqx.is_inexact_array))
-best_model_first, train_losses_first, val_losses_first = (
-    train_model_validation(
-        training_DataLoader=loader_ppi_train_three_split,
-        validation_Dataloader=loader_ppi_validation_three_split,
-        max_epochs=30,
-        model_aff=model_aff,
-        opt_state=opt_state,
-        optim=optim,
-        key=call_key,
-    )
+best_model_first, train_losses_first, val_losses_first = train_model_validation(
+    training_DataLoader=loader_ppi_train_three_split,
+    validation_Dataloader=loader_ppi_validation_three_split,
+    max_epochs=30,
+    model_aff=model_aff,
+    opt_state=opt_state,
+    optim=optim,
+    key=call_key,
 )
 
 test_key_init = jrandom.PRNGKey(1)
@@ -100,5 +95,8 @@ results_ppi_three_way = {
     "val_losses": val_losses_first,
 }
 
-with open("/home/kunzj/BindCraft_uva_internship/surr_model/training_results_jax/results_ppi_three_way.pkl", "wb") as f:
+with open(
+    "/home/kunzj/BindCraft_uva_internship/surr_model/training_results_jax/results_ppi_three_way.pkl",
+    "wb",
+) as f:
     pickle.dump(results_ppi_three_way, f)

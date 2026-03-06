@@ -1,6 +1,29 @@
-# internship_uva_compchem
+# UvA computational chemisty group - computational peptide engineering using machine learning
 
-summary internship uva - computational chemisty group - project title: computational peptide engineering using machine learning
+As a reference what the project aims to achieve here a shortened abstract from my report at the end of the internship: <br>
+<br>
+<p style="text-align: justify;">
+In this study we aim to design de-novo binders with the generative model, BindCraft, and
+enhance its design loop with knowledge derived from atomistic Molecular Dynamics sim-
+ulation. This approach will allow traversing the binder design landscape with generative 
+models while guiding it towards binders with a higher binding affinity determined by MD
+simulations filling the gap of explicit treatment of relevant physical metrics.
+We will adapt a surrogate model to predict the binding affinity of binders by
+using sequence only information mapped to physical metrics in combination with free bind-
+ing energies derived by MD simulations. The model will allow us to estimate the binding
+affinity of new binders without additional MD simulations and analyses.
+The adaptation of our surrogate model will be validated with public available data from
+the PDBbind+ database and compared against other models.
+To achieve the goal of modelling physical metrics in the design process, we can integrate
+the surrogate model into the binder generation of BindCraft. The substitution of explicit
+calculations through surrogate models predictions is needed due to the incompatibility of
+the computational cost of MD simulations and the generative design loop.
+To identify the effects of the explicit modelling of physical metrics, we will repeat the whole
+process two times and compare if the iterative design loops allows an improvement in our
+binder designs.
+</p>
+
+<br>
 
 ## Overview
 
@@ -9,7 +32,7 @@ internship_uva_compchem/
     ├── X.scripts/          # containing all scripts for the **data** generation with molecular dynamics simulation using gromacs
     ├── Data/               # output folder where all the data will be generated to 
     ├── notebooks/          # containing jupyter notebooks for data analysis, figure creation etc.
-    ├── surrogate_model/    # code for surrogate model etc.
+    ├── surrogate_model/    # code for surrogate model (only as reference and copied from forked repo of BindCraft)
 ```
 
 ## Instructions
@@ -35,12 +58,12 @@ internship_uva_compchem/
     mamba env create --file env.yml
     ```
 
-4. Check installation
+4. Check installation 
 
     ```python
     # check installation ~ will install all files in the current directory
     mamba activate gmxMMPBSA
-    gmx_MMPBSA_test
+    gmx_MMPBSA_test # last step will fail if server does not allow a gui
     ```
 
 Potential trouble shooting are mentioned in their [website](https://valdes-tresanco-ms.github.io/gmx_MMPBSA/dev/installation/)
@@ -48,7 +71,6 @@ Potential trouble shooting are mentioned in their [website](https://valdes-tresa
 ### Installation BindCraft and additional libraries
 
 * [BindCraft](https://github.com/martinpacesa/BindCraft)
-*
 
 # Explanatation of directories
 

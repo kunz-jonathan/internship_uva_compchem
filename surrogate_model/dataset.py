@@ -1,9 +1,8 @@
 import numpy as np
 import pandas as pd
-from typing import List
-from pathlib import Path
 from transformers import AutoTokenizer
 from torch.utils.data import DataLoader
+
 
 class Dataset_PEPBI:
     def __init__(self, transform, columns, data_path) -> None:
@@ -25,11 +24,17 @@ class Dataset_PEPBI:
 
         # Store each sample as a small dict (keeps same format as per-item tokenization)
         self.sequences_prot = [
-            {"input_ids": prot_enc["input_ids"][i].unsqueeze(0), "attention_mask": prot_enc["attention_mask"][i].unsqueeze(0)}
+            {
+                "input_ids": prot_enc["input_ids"][i].unsqueeze(0),
+                "attention_mask": prot_enc["attention_mask"][i].unsqueeze(0),
+            }
             for i in range(prot_enc["input_ids"].size(0))
         ]
         self.sequences_pept = [
-            {"input_ids": pept_enc["input_ids"][i].unsqueeze(0), "attention_mask": pept_enc["attention_mask"][i].unsqueeze(0)}
+            {
+                "input_ids": pept_enc["input_ids"][i].unsqueeze(0),
+                "attention_mask": pept_enc["attention_mask"][i].unsqueeze(0),
+            }
             for i in range(pept_enc["input_ids"].size(0))
         ]
 
@@ -61,33 +66,35 @@ class Dataset_PEPBI:
 
         return seq_prot, seq_pept, affVal
 
-def no_tensor_collate(batch):
-    return batch 
 
-def load_datasets(base_path='/home/kunzj'):
-    tokenizer = AutoTokenizer.from_pretrained("facebook/esm2_t30_150M_UR50D",local_files_only=True)
-    
+def no_tensor_collate(batch):
+    return batch
+
+
+def load_datasets(base_path="/home/kunzj"):
+    tokenizer = AutoTokenizer.from_pretrained(
+        "facebook/esm2_t30_150M_UR50D", local_files_only=True
+    )
+
     data_train = Dataset_PEPBI(
         columns=["Prot_Seq", "Pept_Seq", "Energy"],
         data_path=f"{base_path}/BindCraft_uva_internship/data/ppi_affinity_dataset/cosine_sim_scaled/three_way/train.csv",
         transform=tokenizer,
     )
-    train_loader = DataLoader(data_train, batch_size=1,collate_fn=no_tensor_collate)
-
-
+    train_loader = DataLoader(data_train, batch_size=1, collate_fn=no_tensor_collate)
 
     data_validation = Dataset_PEPBI(
         columns=["Prot_Seq", "Pept_Seq", "Energy"],
         data_path=f"{base_path}/BindCraft_uva_internship/data/ppi_affinity_dataset/cosine_sim_scaled/three_way/validation.csv",
         transform=tokenizer,
     )
-    val_loader = DataLoader(data_validation, batch_size=1,collate_fn=no_tensor_collate)
+    val_loader = DataLoader(data_validation, batch_size=1, collate_fn=no_tensor_collate)
 
     data_test = Dataset_PEPBI(
         columns=["Prot_Seq", "Pept_Seq", "Energy"],
         data_path=f"{base_path}/BindCraft_uva_internship/data/ppi_affinity_dataset/cosine_sim_scaled/three_way/test.csv",
         transform=tokenizer,
     )
-    test_loader = DataLoader(data_test, batch_size=1,collate_fn=no_tensor_collate)
-    
+    test_loader = DataLoader(data_test, batch_size=1, collate_fn=no_tensor_collate)
+
     return train_loader, val_loader, test_loader
