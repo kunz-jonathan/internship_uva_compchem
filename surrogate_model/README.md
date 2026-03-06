@@ -1,6 +1,6 @@
 ## Notice
 
-The surrogate model is adapted from the very nicely documented [BALM repository](https://github.com/meyresearch/BALM) developed by [Gorantla, Rohan et. al. (2024) ](https://pubs.acs.org/doi/10.1021/acs.jcim.5c02063). The model was adapted mainly to accomodate peptides as binders instead of small molecules.  <br>
+The surrogate model is adapted from the very nicely documented [BALM repository](https://github.com/meyresearch/BALM) developed by [Gorantla, Rohan et. al. (2024) ](https://pubs.acs.org/doi/10.1021/acs.jcim.5c02063). The model was adapted mainly to accomodate peptides as binders instead of small molecules and implemented as well in jax to allow integration into the BindCraft pipeline.  <br>
 
 The .py files containing the training scripts and the jax/torch models are here just for completeness and reference.
 They are mainly copied from the forked repository of BindCraft in which they were used and deployed. 
